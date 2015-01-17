@@ -22,6 +22,7 @@
             <th>Country</th>
             <th>Preference</th>
             <th>Term</th>
+            <th>Rating</th>
             <tr ng-repeat="univ in univs | orderBy:'-preference'">
                 <td style="margin-left:10px;">
                     <a ng-show="univ.link" href="{{univ.link}}">
@@ -34,6 +35,7 @@
                 <td>{{univ.country}}</td>
                 <td>{{univ.preference}}</td>
                 <td>{{univ.term}}</td>
+                <td>{{univ.rating}}</td>
                 <td ng-click="deleteUniv($index)">Delete<td>
 
                     </tr>
@@ -74,6 +76,14 @@
                     </div>
 
                     <div class="form-group">
+                        Rating:
+                        <input type="number"
+                        name="rating"
+                        class="form-control"
+                        ng-model="rating"></input>
+                    </div>
+
+                    <div class="form-group">
                         Term:
                         <input type="number"
                         name="term"
@@ -82,7 +92,6 @@
                         class="form-control"
                         ng-model="term"></input>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
 

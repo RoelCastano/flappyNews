@@ -16,13 +16,15 @@ angular.module('flapperNews', ['LocalStorageModule'])
               country: $scope.country,
               preference: $scope.preference,
               term: $scope.term,
-              link: $scope.link
+              link: $scope.link,
+              rating: $scope.rating
           });
           $scope.university='';
           $scope.country='';
           $scope.preference=0;
           $scope.term=1;
           $scope.link='';
+          $scope.rating=0;
       };
 
       $scope.incrementPreference= function(univ) {
