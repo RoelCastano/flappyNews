@@ -1,27 +1,39 @@
-angular.module('flapperNews', [])
+angular.module('flapperNews', ['LocalStorageModule'])
+.config(function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('univ');
+    localStorageServiceProvider.setStorageType('sessionStorage');
+})
 .factory('posts', [function(){
 
 }])
 .controller('MainCtrl', [
   '$scope', function($scope){
-      $scope.posts = [
-          {title: 'post 1', upvotes: 5},
-          {title: 'post 2', upvotes: 2},
-          {title: 'post 3', upvotes: 15},
-          {title: 'post 4', upvotes: 9},
-          {title: 'post 5', upvotes: 4}
-      ];
-      $scope.addPost = function(){
-          if(!$scope.title || $scope.title === '') { return; }
-          $scope.posts.push({
-              title: $scope.title,
-              link: $scope.link,
-              upvotes: 0
+      $scope.univs = [];
+      $scope.addUniv = function(){
+          if(!$scope.university || $scope.university === '') { return; }
+          $scope.univs.push({
+              university: $scope.university,
+              country: $scope.country,
+              preference: $scope.preference,
+              term: $scope.term,
+              link: $scope.link
           });
-          $scope.title='';
+          $scope.university='';
+          $scope.country='';
+          $scope.preference=0;
+          $scope.term=1;
           $scope.link='';
       };
-      $scope.incrementUpvotes= function(post) {
-          post.upvotes++;
+
+      $scope.incrementPreference= function(univ) {
+          univ.preference++;
       };
+
+      $scope.gridOptions = {data: 'univs'};
+
+      $scope.deleteUniv=function(idx) {
+          $scope.univs.splice(idx, 1);
+      }
   }]);
+
+

@@ -2,7 +2,10 @@
 <head>
 <title>My Angular App!</title>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="app.js"></script>
 <style> .glyphicon-thumbs-up {cursor:pointer} </style>
 </head>
@@ -11,44 +14,79 @@
     <div class="col-md-6 col-md-offset-3">
 
         <div class="page-header">
-            <h1>Flapper News</h1>
+            <h1>Universities</h1>
         </div>
 
-        <div ng-repeat="post in posts | orderBy:'-upvotes'">
-            <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)">
-                {{post.upvotes}}
-            </span>
-            <span style="font-size:20px; margin-left:10px;">
-                <a ng-show="post.link" href="{{post.link}}">
-                    {{post.title}}
-                </a>
-                <span ng-hide="post.link">
-                    {{post.title}}
-                </span>
-            </span>
+        <table class="table">
+            <th>University</th>
+            <th>Country</th>
+            <th>Preference</th>
+            <th>Term</th>
+            <tr ng-repeat="univ in univs | orderBy:'-preference'">
+                <td style="margin-left:10px;">
+                    <a ng-show="univ.link" href="{{univ.link}}">
+                        {{univ.university}}
+                    </a>
+                    <span ng-hide="univ.link">
+                        {{univ.university}}
+                    </span>
+                </td>
+                <td>{{univ.country}}</td>
+                <td>{{univ.preference}}</td>
+                <td>{{univ.term}}</td>
+                <td ng-click="deleteUniv($index)">Delete<td>
+
+                    </tr>
+                </table>
+
+                <form ng-submit="addUniv()" style="margin-top:30px;">
+                    <h3>Add a new Univesity</h3>
+
+                    <div class="form-group">
+                        <input type="text"
+                        class="form-control"
+                        placeholder="University"
+                        ng-model="university"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text"
+                        class="form-control"
+                        placeholder="Country"
+                        ng-model="country"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text"
+                        class="form-control"
+                        placeholder="link"
+                        ng-model="link"></input>
+                    </div>
+
+                    <div class="form-group">
+                        Preference:
+                        <input type="number"
+                        name="Preference"
+                        min="0"
+                        max="10"
+                        class="form-control"
+                        ng-model="preference"></input>
+                    </div>
+
+                    <div class="form-group">
+                        Term:
+                        <input type="number"
+                        name="term"
+                        min="0"
+                        max="1"
+                        class="form-control"
+                        ng-model="term"></input>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+
+            </div>
         </div>
-
-        <form ng-submit="addPost()" style="margin-top:30px;">
-            <h3>Add a new post</h3>
-
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Title"
-                ng-model="title"></input>
-            </div>
-
-            <div class="form-group">
-                <input type="text"
-                class="form-control"
-                placeholder="Link"
-                ng-model="link"></input>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
-
-    </div>
-</div>
-</body>
-</html>
+        </body>
+        </html>
